@@ -8,6 +8,10 @@ declare module "next-auth/jwt" {
     id: string;
     accessToken: string;
     idToken?: string;
+    accessTokenExpires: number;
+    accessToken?: string;
+    username?: string;
+    refreshToken?: string;
   }
 }
 
@@ -19,6 +23,12 @@ declare module "next-auth" {
     accessToken: string;
     user: {
       id?: string;
+      accessToken?: string;
+      username?: string;
+      refreshToken?: string;
     } & DefaultSession["user"];
+  }
+  interface Account {
+    expires_at: number;
   }
 }
