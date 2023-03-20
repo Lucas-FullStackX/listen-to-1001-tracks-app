@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { signIn, signOut, useSession } from "next-auth/react";
+import useCreatePlaylist from "../hooks/useCreatePlaylist";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -67,7 +68,7 @@ export default function Home() {
 
 const AuthShowcase: React.FC = () => {
   const { data: sessionData } = useSession();
-  console.log(sessionData);
+  const [createPlaylist, {}] = useCreatePlaylist();
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       <p className="text-center text-2xl text-white">
@@ -79,6 +80,14 @@ const AuthShowcase: React.FC = () => {
       >
         {sessionData ? "Sign out" : "Sign in"}
       </button>
+      {sessionData && (
+        <button
+          className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
+          onClick={async () => await createPlaylist("TEST")}
+        >
+          TEST
+        </button>
+      )}
     </div>
   );
 };
