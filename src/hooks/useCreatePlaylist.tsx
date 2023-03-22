@@ -1,6 +1,6 @@
+import { SPOTIFY_CREATE_PLAYLIST_API } from "@/constants";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import { SPOTIFY_CREATE_PLAYLIST_API } from "../../lib/constants";
 
 interface PlaylistResponse {
   snapshot_id: string;

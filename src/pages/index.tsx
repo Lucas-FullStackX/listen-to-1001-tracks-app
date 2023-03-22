@@ -1,11 +1,10 @@
 import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import styles from "@/styles/Home.module.css";
 import { signIn, signOut, useSession } from "next-auth/react";
-import useCreatePlaylist from "../hooks/useCreatePlaylist";
 
-const inter = Inter({ subsets: ["latin"] });
+import Card from "@/components/Cards/Card";
+import { categories } from "@/data/categories.json";
+import useCreatePlaylist from "@/hooks/useCreatePlaylist";
+import SearchBar from "@/components/Inputs/SearchBar";
 
 export default function Home() {
   return (
@@ -16,52 +15,26 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <div className={styles.description}>
+      <div className="flex min-h-screen flex-col items-center justify-center bg-slate-800 ">
+        <main className="container mx-auto px-4">
           <AuthShowcase />
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>src/pages/index.tsx</code>
-          </p>
+          <SearchBar />
           <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{" "}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
+            {categories.map((category) => (
+              <>
+                <h6 className="text-xl font-bold mb-4 text-white">
+                  {category.title}
+                </h6>
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 items-start mb-5">
+                  {category.list.map((item) => (
+                    <Card title={item} key={item} />
+                  ))}
+                </div>
+              </>
+            ))}
           </div>
-        </div>
-
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
-          </div>
-        </div>
-      </main>
+        </main>
+      </div>
     </>
   );
 }
@@ -70,9 +43,9 @@ const AuthShowcase: React.FC = () => {
   const { data: sessionData } = useSession();
   const [createPlaylist, {}] = useCreatePlaylist();
   return (
-    <div className="flex flex-col items-center justify-center gap-4">
+    <main>
       <p className="text-center text-2xl text-white">
-        {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
+        {sessionData && <span>Welcome, {sessionData.user?.name} !</span>}
       </p>
       <button
         className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
@@ -88,6 +61,6 @@ const AuthShowcase: React.FC = () => {
           TEST
         </button>
       )}
-    </div>
+    </main>
   );
 };

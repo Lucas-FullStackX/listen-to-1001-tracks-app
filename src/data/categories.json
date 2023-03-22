@@ -1,0 +1,16 @@
+{
+  "categories": [
+    {
+      "title": "Weekly Tracks",
+      "list": ["Daily Tracks", "Weekly Tracks", "Last Week Tracks"]
+    },
+    {
+      "title": "Annual Tracks",
+      "list": ["Tracks List 2022", "Tracks List 2021", "Tracks List 2020"]
+    },
+    {
+      "title": "Trends",
+      "list": ["Trending Tracks", "Most Hear", "All Time"]
+    }
+  ]
+}
